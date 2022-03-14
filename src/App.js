@@ -34,7 +34,7 @@ export default function App() {
         {/* <Link style={{ marginRight:'10px'}} to="/">Home</Link>
         <Link style={{ marginRight:'10px'}} to="/posts">Posts</Link>
         <Link style={{ marginRight:'10px'}} to="/">Profile</Link> */}
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="success" variant="dark">
           <Container>
             <Navbar.Brand href="/">Home</Navbar.Brand>
             <Nav className="me-auto">
