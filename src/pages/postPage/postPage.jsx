@@ -7,9 +7,17 @@ import Button from 'react-bootstrap/Button'
 export default function PostPage() {
   const [data, setData] = useState([]);
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
+    const header = {};
+    if (token) {
+      header['Authorization'] = token;
+    }
+
     fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "GET",
+      headers: header
     })
       .then(function (response) {
         return response.json();
@@ -17,7 +25,7 @@ export default function PostPage() {
       .then(function (json) {
         setData(json);
       });
-  }, []);
+  }, [token]);
   return (
     <Table striped bordered hover>
       <thead>

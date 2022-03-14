@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import LoginPage from "../loginPage/loginPage";
+
 export default function ProfilePage() {
-  return(
-  <b>
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    Lorem Ipsum has been the industry's standard dummy text ever since the
-    1500s, when an unknown printer took a galley of type and scrambled it to
-    make a type specimen book
-  </b>)
+  const [userInfo, setUserInfo] = useState();
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    if (token && userId) {
+      fetch(`https://60dff0ba6b689e001788c858.mockapi.io/users/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (json) {
+          setUserInfo(json);
+        });
+    }
+  }, [token, userId]);
+
+  return token ? (
+    <div>
+      Name: {userInfo?.name} <br />
+      UseId: {userInfo?.id}
+    </div>
+  ) : (
+    <div>
+      <b>You need login to continue</b>
+      <LoginPage />
+    </div>  
+  );
 }
